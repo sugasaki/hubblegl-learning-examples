@@ -78,3 +78,20 @@ MapboxAccessToken=pk.xxxxxxxxxxxxx
 ```
 yarn start-local
 ```
+
+## Landmark Tour
+
+![](./examples/landmark-tour/landmark-tour.gif)
+![](./examples/landmark-tour/landmark-tour2.gif)
+
+```
+
+# To install example go to the folder
+cd examples/landmark-tour
+
+# do this once per example
+yarn
+
+# To run the example
+yarn start-local
+```
