@@ -13,6 +13,8 @@ yarn bootstrap
 
 ## standalone
 
+![](./examples/standalone/standalone.gif)
+
 ```
 
 # To install example go to the folder
@@ -27,6 +29,8 @@ yarn start-local
 
 ## pure-js
 
+![](./examples/pure-js/pure-js.gif)
+
 ```
 
 # To install example go to the folder
@@ -40,6 +44,8 @@ yarn start-local
 ```
 
 ## trips
+
+![](https://user-images.githubusercontent.com/26909101/92542712-25c01d00-f20f-11ea-9aee-1bc2806685dc.gif)
 
 ```
 # install dependencies within hubble.gl root
