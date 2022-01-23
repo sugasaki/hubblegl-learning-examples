@@ -36,10 +36,13 @@ Other options can be found at [using with Mapbox GL](https://deck.gl/docs/get-st
 ```bash
 # install dependencies within hubble.gl root
 yarn bootstrap
+
 # To install example go to the folder
 cd examples/trips
+
 # do this once per example
 yarn
+
 # To run the example
 yarn start-local
 ```
@@ -48,83 +51,3 @@ yarn start-local
 
 Sample data is stored in [deck.gl Example Data](https://github.com/visgl/deck.gl-data/tree/master/examples/trips). To use your own data, check out
 the [documentation of TripsLayer](https://deck.gl/docs/api-reference/geo-layers/trips-layer).
-
-### How to add this feature to a hubble.gl example
-
-1. Define hubble.gl react hooks
-
-```jsx
-import React, {useRef} from 'react';
-import {useDeckAnimation, useHubbleGl} from '@hubble.gl/react';
-
-const initialViewState = {...};
-
-function Map() {
-  const deckRef = useRef(null);
-  const staticMapRef = useRef(null);
-  const deckAnimation = useDeckAnimation({
-    getLayers: a =>
-      a.applyLayerKeyframes([
-         // move deck layer definitions to here
-      ]),
-    layerKeyframes: ...
-    cameraKeyframe: ...
-  });
-
-  const {
-    deckProps,
-    staticMapProps,    // optional, use for basemap
-    adapter,           // optional, use to modify animation at run time
-    cameraFrame,       // optional, use for camera animation
-    setCameraFrame     // optional, use for camera animation
-  } = useHubbleGl({
-      deckRef,
-      staticMapRef,    // optional, use for basemap
-      deckAnimation,
-      initialViewState // optional, use for camera animation
-  });
-
-  ...
-```
-
-2. Define animation and export settings
-
-```js
-const formatConfigs = {
-  // optional, override default quality settings
-};
-
-const resolution = {
-  width: 1280,
-  height: 720,
-};
-
-const timecode = {
-  start: 0,
-  end: 5000,
-  framerate: 30,
-};
-```
-
-3. Add to props of the `DeckGl` and `StaticMap` component
-
-```jsx
-  <DeckGL
-    ref={deckRef}
-    viewState={cameraFrame}
-    width={resolution.width}
-    height={resolution.height}
-    viewState={cameraFrame}
-    {/* add your props before spreading hubble props */}
-    {...deckProps}
-  >
-    {/* optional base map */}
-    {staticMapProps.gl && (
-      <StaticMap
-        ref={staticMapRef}
-        {/* add your props before spreading hubble props */}
-        {...staticMapProps}
-      />
-    )}
-  </DeckGL>
-```
