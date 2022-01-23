@@ -1,14 +1,15 @@
 import { PolygonLayer } from '@deck.gl/layers';
 import { TripsLayer } from '@deck.gl/geo-layers';
 
-import { DATA_URL, DEFAULT_THEME, landCover, timecode } from './constants';
+import { DEFAULT_THEME, landCover, timecode } from './constants';
+import { visualizeData } from '../vis-data';
 
 export const deckAnimationOption = {
   getLayers: (a) =>
     a.applyLayerKeyframes([
       new TripsLayer({
         id: 'trips',
-        data: DATA_URL.TRIPS,
+        data: visualizeData.TRIPS,
         getPath: (d) => d.path,
         getTimestamps: (d) => d.timestamps,
         getColor: (d) => (d.vendor === 0 ? DEFAULT_THEME.trailColor0 : DEFAULT_THEME.trailColor1),
@@ -20,7 +21,7 @@ export const deckAnimationOption = {
       }),
       new PolygonLayer({
         id: 'buildings',
-        data: DATA_URL.BUILDINGS,
+        data: visualizeData.BUILDINGS,
         extruded: true,
         wireframe: false,
         opacity: 0.5,

@@ -1,12 +1,5 @@
 import { AmbientLight, PointLight, LightingEffect } from '@deck.gl/core';
 
-// Source data CSV
-export const DATA_URL = {
-  BUILDINGS:
-    'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/buildings.json',
-  TRIPS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/trips-v7.json',
-};
-
 export const ambientLight = new AmbientLight({
   color: [255, 255, 255],
   intensity: 1.0,
