@@ -51,12 +51,24 @@ cd examples/trips
 # do this once per example
 yarn
 
-# copy .env.sample to .env
+```
+
+#### environment file copy
+
+```
 cp .env.sample .env
+```
 
-# set mapbox access token
+To see the base map, you need a [Mapbox access token](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/). You can either set an environment variable:
 
+set mapbox access token
 
-# To run the example
+```
+MapboxAccessToken=pk.xxxxxxxxxxxxx
+```
+
+#### To run the example
+
+```
 yarn start-local
 ```
