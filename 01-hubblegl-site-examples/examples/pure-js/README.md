@@ -1,6 +1,4 @@
-<div align="center">
-   <img width="150" heigth="150" src="https://webpack.js.org/assets/icon-square-big.svg" />
-</div>
+![](./pure-js.gif)
 
 ## Example: Use deck.gl without React and Base Map
 
@@ -18,5 +16,6 @@ yarn
 ```
 
 Commands:
-* `npm start` is the development target, to serve the app and hot reload.
-* `npm run build` is the production target, to create the final bundle and write to disk.
+
+- `npm start` is the development target, to serve the app and hot reload.
+- `npm run build` is the production target, to create the final bundle and write to disk.
