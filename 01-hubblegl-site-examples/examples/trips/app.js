@@ -4,41 +4,41 @@
  * Source code: https://github.com/visgl/deck.gl/tree/master/examples/website/trips
  */
 
-import React, {useState, useRef, useEffect, useCallback} from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import DeckGL from '@deck.gl/react';
-import {BasicControls, useHubbleGl, useDeckAnimation} from '@hubble.gl/react';
-import {AmbientLight, PointLight, LightingEffect} from '@deck.gl/core';
-import {StaticMap} from 'react-map-gl';
-import {PolygonLayer} from '@deck.gl/layers';
-import {TripsLayer} from '@deck.gl/geo-layers';
+import { BasicControls, useHubbleGl, useDeckAnimation } from '@hubble.gl/react';
+import { AmbientLight, PointLight, LightingEffect } from '@deck.gl/core';
+import { StaticMap } from 'react-map-gl';
+import { PolygonLayer } from '@deck.gl/layers';
+import { TripsLayer } from '@deck.gl/geo-layers';
 
-import {easing} from 'popmotion';
+import { easing } from 'popmotion';
 
 // Source data CSV
 const DATA_URL = {
   BUILDINGS:
     'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/buildings.json',
-  TRIPS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/trips-v7.json'
+  TRIPS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/trips-v7.json',
 };
 
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],
-  intensity: 1.0
+  intensity: 1.0,
 });
 
 const pointLight = new PointLight({
   color: [255, 255, 255],
   intensity: 2.0,
-  position: [-74.05, 40.7, 8000]
+  position: [-74.05, 40.7, 8000],
 });
 
-const lightingEffect = new LightingEffect({ambientLight, pointLight});
+const lightingEffect = new LightingEffect({ ambientLight, pointLight });
 
 const material = {
   ambient: 0.1,
   diffuse: 0.6,
   shininess: 32,
-  specularColor: [60, 64, 70]
+  specularColor: [60, 64, 70],
 };
 
 const DEFAULT_THEME = {
@@ -46,7 +46,7 @@ const DEFAULT_THEME = {
   trailColor0: [253, 128, 93],
   trailColor1: [23, 184, 190],
   material,
-  effects: [lightingEffect]
+  effects: [lightingEffect],
 };
 
 const INITIAL_VIEW_STATE = {
@@ -54,7 +54,7 @@ const INITIAL_VIEW_STATE = {
   latitude: 40.72,
   zoom: 13,
   pitch: 45,
-  bearing: 0
+  bearing: 0,
 };
 
 const landCover = [
@@ -62,41 +62,41 @@ const landCover = [
     [-74.0, 40.7],
     [-74.02, 40.7],
     [-74.02, 40.72],
-    [-74.0, 40.72]
-  ]
+    [-74.0, 40.72],
+  ],
 ];
 
 const resolution = {
   width: 1280,
-  height: 720
+  height: 720,
 };
 
 /** @type {import('@hubble.gl/core/src/types').FormatConfigs} */
 const formatConfigs = {
   webm: {
-    quality: 0.8
+    quality: 0.8,
   },
   png: {
-    archive: 'zip'
+    archive: 'zip',
   },
   jpeg: {
     archive: 'zip',
-    quality: 0.8
+    quality: 0.8,
   },
   gif: {
     sampleInterval: 1000,
     width: resolution.width,
-    height: resolution.height
-  }
+    height: resolution.height,
+  },
 };
 
 const timecode = {
   start: 0,
   end: 5000,
-  framerate: 30
+  framerate: 30,
 };
 
-const Container = ({children}) => (
+const Container = ({ children }) => (
   <div
     style={{
       display: 'flex',
@@ -105,14 +105,20 @@ const Container = ({children}) => (
       width: '100%',
       height: '100%',
       position: 'relative',
-      backgroundColor: '#11183c'
+      backgroundColor: '#11183c',
     }}
   >
     {children}
   </div>
 );
 
-export default function App({mapStyle = 'mapbox://styles/mapbox/dark-v9'}) {
+// const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
+const MAP_STYLE = 'mapbox://styles/mapbox/dark-v9';
+// const MAP_STYLE = 'mapbox://styles/mapbox/light-v9';
+// const MAP_STYLE = 'mapbox://styles/mapbox/satellite-v9';
+// const MAP_STYLE = 'mapbox://styles/mapbox/outdoors-v9';
+
+export default function App({ mapStyle = MAP_STYLE }) {
   const deckRef = useRef(null);
   const staticMapRef = useRef(null);
   const [busy, setBusy] = useState(false);
@@ -130,7 +136,7 @@ export default function App({mapStyle = 'mapbox://styles/mapbox/dark-v9'}) {
           widthMinPixels: 2,
           rounded: true,
           trailLength: 180,
-          shadowEnabled: false
+          shadowEnabled: false,
         }),
         new PolygonLayer({
           id: 'buildings',
@@ -141,34 +147,34 @@ export default function App({mapStyle = 'mapbox://styles/mapbox/dark-v9'}) {
           getPolygon: f => f.polygon,
           getElevation: f => f.height,
           getFillColor: DEFAULT_THEME.buildingColor,
-          material: DEFAULT_THEME.material
+          material: DEFAULT_THEME.material,
         }),
         new PolygonLayer({
           id: 'ground',
           data: landCover,
           getPolygon: f => f,
           stroked: false,
-          getFillColor: [0, 0, 0, 0]
-        })
+          getFillColor: [0, 0, 0, 0],
+        }),
       ]),
     layerKeyframes: [
       {
         id: 'trips',
         timings: [0, timecode.end],
-        keyframes: [{currentTime: 0}, {currentTime: 1800}]
-      }
-    ]
+        keyframes: [{ currentTime: 0 }, { currentTime: 1800 }],
+      },
+    ],
   });
 
-  const {deckProps, staticMapProps, adapter, cameraFrame, setCameraFrame} = useHubbleGl({
+  const { deckProps, staticMapProps, adapter, cameraFrame, setCameraFrame } = useHubbleGl({
     deckRef,
     staticMapRef,
     deckAnimation,
-    initialViewState: INITIAL_VIEW_STATE
+    initialViewState: INITIAL_VIEW_STATE,
   });
 
   const onViewStateChange = useCallback(
-    ({viewState: vs}) => {
+    ({ viewState: vs }) => {
       adapter.animationManager.setKeyframes('deck', {
         cameraKeyframe: {
           timings: [0, timecode.end],
@@ -178,31 +184,31 @@ export default function App({mapStyle = 'mapbox://styles/mapbox/dark-v9'}) {
               latitude: vs.latitude,
               zoom: vs.zoom,
               pitch: vs.pitch,
-              bearing: vs.bearing
+              bearing: vs.bearing,
             },
             {
               longitude: vs.longitude,
               latitude: vs.latitude,
               zoom: vs.zoom,
               bearing: vs.bearing + 180,
-              pitch: vs.pitch
-            }
+              pitch: vs.pitch,
+            },
           ],
-          easings: [easing.easeInOut]
-        }
+          easings: [easing.easeInOut],
+        },
       });
       setCameraFrame(vs);
     },
-    [timecode.end]
+    [timecode.end],
   );
-  useEffect(() => onViewStateChange({viewState: cameraFrame}), []);
+  useEffect(() => onViewStateChange({ viewState: cameraFrame }), []);
 
   return (
     <Container>
-      <div style={{position: 'relative'}}>
+      <div style={{ position: 'relative' }}>
         <DeckGL
           ref={deckRef}
-          style={{position: 'unset'}}
+          style={{ position: 'unset' }}
           effects={DEFAULT_THEME.effects}
           controller={true}
           viewState={cameraFrame}

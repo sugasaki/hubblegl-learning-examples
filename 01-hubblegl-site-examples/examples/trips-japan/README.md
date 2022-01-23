@@ -19,13 +19,21 @@ To see the base map, you need a [Mapbox access token](https://docs.mapbox.com/he
 cp .env.sample .env
 ```
 
-set mapbox access token
+### Set mapbox access token
 
 ```
 MapboxAccessToken=pk.xxxxxxxxxxxxx
 ```
 
 ~~export MapboxAccessToken=<mapbox_access_token>~~
+
+#### or change the style of the map
+
+```
+const MAP_STYLE = 'mapbox://styles/mapbox/dark-v9';
+ ↓
+const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
+```
 
 Or set `MAPBOX_TOKEN` directly in `app.js`.
 
